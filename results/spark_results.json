@@ -1,0 +1,167 @@
+{
+  "genres": [
+    {
+      "genre": "Crime",
+      "avg_rating": 3.521,
+      "num_ratings": 22665
+    },
+    {
+      "genre": "War",
+      "avg_rating": 3.517,
+      "num_ratings": 26132
+    },
+    {
+      "genre": "Animation",
+      "avg_rating": 3.513,
+      "num_ratings": 24451
+    },
+    {
+      "genre": "Thriller",
+      "avg_rating": 3.492,
+      "num_ratings": 23273
+    },
+    {
+      "genre": "Western",
+      "avg_rating": 3.487,
+      "num_ratings": 24014
+    },
+    {
+      "genre": "Documentary",
+      "avg_rating": 3.48,
+      "num_ratings": 22547
+    },
+    {
+      "genre": "Fantasy",
+      "avg_rating": 3.419,
+      "num_ratings": 20636
+    },
+    {
+      "genre": "Drama",
+      "avg_rating": 3.411,
+      "num_ratings": 24192
+    },
+    {
+      "genre": "Sci-Fi",
+      "avg_rating": 3.402,
+      "num_ratings": 24204
+    },
+    {
+      "genre": "Horror",
+      "avg_rating": 3.388,
+      "num_ratings": 25291
+    },
+    {
+      "genre": "Mystery",
+      "avg_rating": 3.383,
+      "num_ratings": 23837
+    },
+    {
+      "genre": "Musical",
+      "avg_rating": 3.364,
+      "num_ratings": 26148
+    },
+    {
+      "genre": "Romance",
+      "avg_rating": 3.354,
+      "num_ratings": 25103
+    },
+    {
+      "genre": "Children",
+      "avg_rating": 3.244,
+      "num_ratings": 24095
+    },
+    {
+      "genre": "Action",
+      "avg_rating": 3.22,
+      "num_ratings": 21892
+    },
+    {
+      "genre": "Comedy",
+      "avg_rating": 3.173,
+      "num_ratings": 22693
+    },
+    {
+      "genre": "Adventure",
+      "avg_rating": 3.154,
+      "num_ratings": 23843
+    }
+  ],
+  "top_movies": [
+    {
+      "movieId": 602,
+      "avg_rating": 4.809,
+      "num_ratings": 89,
+      "title": "Movie 602 (1998)",
+      "genres": "Mystery|Animation"
+    },
+    {
+      "movieId": 1341,
+      "avg_rating": 4.716,
+      "num_ratings": 81,
+      "title": "Movie 1341 (1982)",
+      "genres": "Crime|Thriller"
+    },
+    {
+      "movieId": 158,
+      "avg_rating": 4.615,
+      "num_ratings": 91,
+      "title": "Movie 158 (1976)",
+      "genres": "Comedy|War"
+    },
+    {
+      "movieId": 1440,
+      "avg_rating": 4.573,
+      "num_ratings": 109,
+      "title": "Movie 1440 (1986)",
+      "genres": "Thriller"
+    },
+    {
+      "movieId": 237,
+      "avg_rating": 4.565,
+      "num_ratings": 108,
+      "title": "Movie 237 (2005)",
+      "genres": "War"
+    },
+    {
+      "movieId": 649,
+      "avg_rating": 4.561,
+      "num_ratings": 90,
+      "title": "Movie 649 (1979)",
+      "genres": "Western"
+    },
+    {
+      "movieId": 1761,
+      "avg_rating": 4.54,
+      "num_ratings": 112,
+      "title": "Movie 1761 (2000)",
+      "genres": "Horror|Crime"
+    },
+    {
+      "movieId": 191,
+      "avg_rating": 4.534,
+      "num_ratings": 103,
+      "title": "Movie 191 (1977)",
+      "genres": "Sci-Fi"
+    },
+    {
+      "movieId": 431,
+      "avg_rating": 4.524,
+      "num_ratings": 104,
+      "title": "Movie 431 (2019)",
+      "genres": "Horror|Drama"
+    },
+    {
+      "movieId": 1867,
+      "avg_rating": 4.517,
+      "num_ratings": 88,
+      "title": "Movie 1867 (2006)",
+      "genres": "Adventure|Comedy|Animation"
+    }
+  ],
+  "summary": {
+    "total_ratings": 200000,
+    "overall_avg": 3.385,
+    "users": 3000,
+    "movies_rated": 2000
+  }
+}

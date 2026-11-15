@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Rating Analysis</title>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#f472b6; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  header { padding:24px 32px; border-bottom:1px solid #334155; }
+  header h1 { margin:0 0 4px; font-size:1.5rem; }
+  header p { margin:0; color:var(--muted); }
+  main { padding:24px 32px; max-width:1100px; margin:auto; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:24px; }
+  .card { background:var(--card); border-radius:12px; padding:18px; }
+  .stat .v { font-size:1.8rem; font-weight:700; color:var(--accent); }
+  .stat .l { color:var(--muted); font-size:.85rem; }
+  h2 { font-size:1.1rem; margin:0 0 14px; }
+  .bar-row { display:grid; grid-template-columns:110px 1fr 90px; gap:10px; align-items:center; margin:7px 0; font-size:.9rem; }
+  .bar { background:#334155; border-radius:6px; height:18px; overflow:hidden; }
+  .bar > span { display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+  .val { text-align:right; color:var(--muted); }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  th, td { text-align:left; padding:8px 6px; border-bottom:1px solid #334155; }
+  th { color:var(--muted); font-weight:600; }
+  .tabs button { background:#334155; color:var(--text); border:0; padding:8px 14px; border-radius:8px; cursor:pointer; margin-right:6px; }
+  .tabs button.active { background:var(--accent); color:#0f172a; font-weight:600; }
+  .grid2 { display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:900px){ .grid2{ grid-template-columns:3fr 2fr; } }
+  .empty { color:var(--muted); padding:20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Movie Rating Analysis</h1>
+  <p>CSBB 422 Big Data Analytics &middot; Average rating per genre (Hadoop MapReduce &amp; Spark)</p>
+</header>
+<main>
+  <div class="stats" id="stats"></div>
+  <div class="tabs" style="margin-bottom:14px">
+    <button id="tab-spark" class="active">Spark</button>
+    <button id="tab-mr">Hadoop MapReduce</button>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>Average rating by genre</h2><div id="bars"></div></div>
+    <div class="card"><h2>Top rated movies (&ge;50 ratings)</h2><div id="top"></div></div>
+  </div>
+</main>
+<script>
+let data = null, mode = "spark";
+const $ = id => document.getElementById(id);
+
+function render() {
+  const rows = mode === "spark" ? (data.spark?.genres || []) : data.mapreduce;
+  if (!rows.length) {
+    $("bars").innerHTML = '<div class="empty">No ' + mode + ' results found. Run the job first (see README).</div>';
+  } else {
+    const max = 5;
+    $("bars").innerHTML = rows.map(r => `
+      <div class="bar-row"><div>${r.genre}</div>
+      <div class="bar"><span style="width:${(r.avg_rating / max * 100).toFixed(1)}%"></span></div>
+      <div class="val">${r.avg_rating.toFixed(2)} (${r.num_ratings.toLocaleString()})</div></div>`).join("");
+  }
+  const top = data.spark?.top_movies || [];
+  $("top").innerHTML = top.length ? `<table><tr><th>Title</th><th>Avg</th><th>#</th></tr>` +
+    top.map(m => `<tr><td>${m.title}</td><td>${m.avg_rating}</td><td>${m.num_ratings}</td></tr>`).join("") + `</table>`
+    : '<div class="empty">Available from the Spark job.</div>';
+  const s = data.spark?.summary;
+  $("stats").innerHTML = s ? [
+    ["Total ratings", s.total_ratings.toLocaleString()],
+    ["Overall average", s.overall_avg],
+    ["Users", s.users.toLocaleString()],
+    ["Movies rated", s.movies_rated.toLocaleString()],
+  ].map(([l, v]) => `<div class="card stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("") : "";
+}
+
+function setMode(m) {
+  mode = m;
+  $("tab-spark").classList.toggle("active", m === "spark");
+  $("tab-mr").classList.toggle("active", m === "mr");
+  mode = m === "mr" ? "mapreduce" : "spark";
+  render();
+}
+$("tab-spark").onclick = () => setMode("spark");
+$("tab-mr").onclick = () => setMode("mr");
+
+fetch("/api/results").then(r => r.json()).then(d => { data = d; render(); });
+</script>
+</body>
+</html>
